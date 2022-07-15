@@ -1,12 +1,15 @@
 package tahina.netizen;
 
 public class Board {
-    /**
-     *
-     */
+    public static int WIDTH = 3;
+    public static int HEIGHT = 3;
     private static final String BLANK_CELL_SYMBOL = ".";
+
     private String[][] matrixOfSymbol;
 
+    /**
+     * Create a board with no symbol yet
+     */
     public Board() {
         matrixOfSymbol = new String[3][3];
         for (int x = 0; x < matrixOfSymbol.length; x++) {
@@ -16,8 +19,17 @@ public class Board {
         }
     }
 
+    /**
+     * set a symbol in the given coordinate on this board
+     * @return this board (for builder pattern)
+     * @throws IllegalArgumentException if (x, y) is out of the board
+     */
     public Board set(int x, int y, String symbol) {
-        matrixOfSymbol[x][y] = symbol;
+        try {
+            matrixOfSymbol[x][y] = symbol;
+        } catch(ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(String.format("(%d, %d) is out of bound for board", x, y));
+        }
         return this;
     }
 
@@ -32,5 +44,16 @@ public class Board {
             res += line;
         }
         return res;
+    }
+
+    public boolean isFull() {
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                if(matrixOfSymbol[x][y].equals(BLANK_CELL_SYMBOL)) {
+                    return false;
+                }
+            } 
+        }
+        return true;
     }
 }

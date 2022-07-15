@@ -1,18 +1,32 @@
 package tahina.netizen;
 
 /**
- * Hello world!
+ * Tic tac toe game
  *
  */
 public class App 
 {
     public static void main( String[] args )
     {
-        Board board = new Board()
-            .set(0, 0, "X")
-            .set(1, 1, "X")
-            .set(2, 2, "X"); 
+        // creating a new board
+        Board board = new Board();
         System.out.println( "Welcome to Tic tac toe" );
-        System.out.print(board.toString());
+        
+
+        // new player
+        Player player = new Player("X");
+
+        // asking where the player will put his symbol until the board is full
+        while(! board.isFull()) {
+            System.out.print(board.toString());
+            Point playerPlay = player.play();
+            try {
+                board.set(playerPlay.getX(), playerPlay.getY(), playerPlay.getSymbol());
+            } catch (IllegalArgumentException e) {
+                System.out.println("That play is out of bound. Retry again");
+            }
+        }
+        System.out.println("Game is over");
+        Player.SCANNER.close();
     }
 }
