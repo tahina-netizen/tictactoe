@@ -1,5 +1,10 @@
 package tahina.netizen;
 
+/**
+ * The board:
+ * - can be modified
+ * - can be read
+ */
 public class Board {
     public static int WIDTH = 3;
     public static int HEIGHT = 3;
@@ -23,13 +28,16 @@ public class Board {
      * set a symbol in the given coordinate on this board
      * @return this board (for builder pattern)
      * @throws IllegalArgumentException if (x, y) is out of the board
+     * @throws IllegalPlayException if trying to set a symbol on an already taken cell
      */
-    public Board set(int x, int y, String symbol) {
-        try {
-            matrixOfSymbol[x][y] = symbol;
-        } catch(ArrayIndexOutOfBoundsException e) {
+    public Board set(int x, int y, String symbol) throws IllegalPlayException {
+        if (x >= WIDTH || y >= HEIGHT) {
             throw new IllegalArgumentException(String.format("(%d, %d) is out of bound for board", x, y));
         }
+        if(! matrixOfSymbol[x][y].equals(BLANK_CELL_SYMBOL)) {
+            throw new IllegalPlayException(String.format("(%d, %d) is already taken", x, y));
+        }
+        matrixOfSymbol[x][y] = symbol;
         return this;
     }
 
@@ -55,5 +63,47 @@ public class Board {
             } 
         }
         return true;
+    }
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return true iff the cell (x, y) is empty. Otherwise, false. 
+     * If (x, y) is out of bound, it's considered unavailable too.
+     */
+    public boolean isCellAvailable(int x, int y) {
+        if (isValidCoordinates(x, y)) {
+            return matrixOfSymbol[x][y].equals(BLANK_CELL_SYMBOL);
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return true iff (x, y) is not out of bound. Otherwise, false.
+     */
+    private boolean isValidCoordinates(int x, int y) {
+        return x < WIDTH && y < HEIGHT;
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @return the symbol place on (x, y). If (x, y) does not contain any symbol, return
+     * null. If (x, y) is out of bound , return null
+     */
+    public String get(int x, int y) {
+        if(isValidCoordinates(x, y)) {
+            String symbol = matrixOfSymbol[x][y];
+            return symbol.equals(BLANK_CELL_SYMBOL) ? null: symbol;
+        }
+        else {
+            return null;
+        }
     }
 }

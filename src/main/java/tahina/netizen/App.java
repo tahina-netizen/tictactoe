@@ -24,6 +24,8 @@ public class App
                 board.set(playerPlay.getX(), playerPlay.getY(), playerPlay.getSymbol());
             } catch (IllegalArgumentException e) {
                 System.out.println("That play is out of bound. Retry again");
+            } catch (IllegalPlayException e) {
+                System.out.println("That play is illegal. Try again");
             }
         }
         System.out.println("Game is over");
