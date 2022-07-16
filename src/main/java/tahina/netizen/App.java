@@ -28,6 +28,7 @@ public class App
                 System.out.println("That play is illegal. Try again");
             }
         }
+        System.out.print(board.toString());
         System.out.println("Game is over");
         Player.SCANNER.close();
     }

@@ -35,6 +35,16 @@ public class BoardTest {
         assertEquals("O", someBoard.get(x, y));
     }
 
+    @Test (expected = IllegalPlayException.class)
+    public void when_a_cell_is_not_available_setting_a_symbol_on_it_throws_exception() throws Exception {
+        int x = 0;
+        int y = 2;
+        someBoard.set(x, y, "O");
+        assertFalse(someBoard.isCellAvailable(x, y));
+
+        someBoard.set(x, y, "O");
+    }
+
     @Test
     public void when_the_board_is_full_isFullMethod_return_true() throws Exception {
         Board someBoard = new Board();
