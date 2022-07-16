@@ -31,10 +31,10 @@ public class Board {
      * @throws IllegalPlayException if trying to set a symbol on an already taken cell
      */
     public Board set(int x, int y, String symbol) throws IllegalPlayException {
-        if (x >= WIDTH || y >= HEIGHT) {
+        if (! isValidCoordinates(x, y)) {
             throw new IllegalArgumentException(String.format("(%d, %d) is out of bound for board", x, y));
         }
-        if(! matrixOfSymbol[x][y].equals(BLANK_CELL_SYMBOL)) {
+        if(! isCellAvailable(x, y)) {
             throw new IllegalPlayException(String.format("(%d, %d) is already taken", x, y));
         }
         matrixOfSymbol[x][y] = symbol;
@@ -57,7 +57,7 @@ public class Board {
     public boolean isFull() {
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
-                if(matrixOfSymbol[x][y].equals(BLANK_CELL_SYMBOL)) {
+                if(isCellAvailable(x, y)) {
                     return false;
                 }
             } 
