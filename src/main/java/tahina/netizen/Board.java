@@ -1,11 +1,15 @@
 package tahina.netizen;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * The board:
  * - can be modified
  * - can be read
  */
-public class Board {
+public class Board implements Iterable {
     public static int WIDTH = 3;
     public static int HEIGHT = 3;
     private static final String BLANK_CELL_SYMBOL = ".";
@@ -95,15 +99,31 @@ public class Board {
      * @param x
      * @param y
      * @return the symbol place on (x, y). If (x, y) does not contain any symbol, return
-     * null. If (x, y) is out of bound , return null
+     * null. 
+     * @throws IllegalArgumentException If (x, y) is out of bound
      */
     public String get(int x, int y) {
         if(isValidCoordinates(x, y)) {
             String symbol = matrixOfSymbol[x][y];
             return symbol.equals(BLANK_CELL_SYMBOL) ? null: symbol;
         }
-        else {
-            return null;
+        throw new IllegalArgumentException(
+            String.format("Coordinates out of bound: (%d, %d)", x, y)
+        );
+    }
+
+    public static boolean isBlankCellSymbol(String symbol) {
+        return symbol.equals(BLANK_CELL_SYMBOL);
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        List<String> listOfSymbols = new LinkedList<>();
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                listOfSymbols.add(get(x, y));
+            } 
         }
+        return listOfSymbols.iterator();
     }
 }

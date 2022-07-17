@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,32 @@ public class BoardTest {
     @Before
     public void init() {
         someBoard = new Board();
+    }
+
+    @Test
+    public void when_board_is_instantiated_board_iterator_iterates_over_correct_number_of_empty_cells() {
+        Iterator<String> symbolIterator = someBoard.iterator();
+
+        int numberOfCells = 0;
+        while(symbolIterator.hasNext()) {
+            String symbol = symbolIterator.next();
+            assertNull(symbol);
+            numberOfCells++;   
+        }
+        int expectedNumberOfCells = 9;
+        assertEquals(expectedNumberOfCells, numberOfCells);
+    }
+
+    @Test
+    public void when_board_contains_some_symbol_the_iterator_iterate_correctly_through() {
+        Iterator<String> symbolIterator = someBoard.iterator();
+        for (int x = 0; x < Board.WIDTH; x++) {
+            for (int y = 0; y < Board.HEIGHT; y++) {
+                String expectedSymbol = someBoard.get(x, y);
+                String actualSymbol = symbolIterator.next();
+                assertEquals(expectedSymbol, actualSymbol);
+            }
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -88,13 +116,13 @@ public class BoardTest {
         assertTrue(someBoard.isCellAvailable(x, y));
     }
 
-    @Test 
-    public void when_the_coordinates_are_out_of_bound_getMethod_return_null() {
+    @Test (expected = IllegalArgumentException.class)
+    public void when_the_coordinates_are_out_of_bound_getMethod_throws() {
         // out of bound coordinates
         int x = Board.WIDTH + 1000;
         int y = Board.HEIGHT + 1000;
 
-        assertNull(someBoard.get(x, y));
+        someBoard.get(x, y);
     }
 
     @Test
