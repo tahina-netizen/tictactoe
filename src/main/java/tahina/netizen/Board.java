@@ -116,6 +116,10 @@ public class Board implements Iterable {
         return symbol.equals(BLANK_CELL_SYMBOL);
     }
 
+    /**
+     * @return an iterator that iterate through the board row per row (beginning with (0, 0))
+     * 
+     */
     @Override
     public Iterator<String> iterator() {
         List<String> listOfSymbols = new LinkedList<>();
