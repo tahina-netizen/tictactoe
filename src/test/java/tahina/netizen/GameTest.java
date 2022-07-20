@@ -21,8 +21,6 @@ public class GameTest {
 
     @Test
     public void when_game_not_over_yet_getWinnerMethod_return_null() {
-        Game someGame = new Game();
-        Board someBoard = new Board();
         assertFalse(someBoard.isFull());
         assertFalse(someGame.isOver(someBoard));
 
@@ -31,8 +29,6 @@ public class GameTest {
 
     @Test
     public void when_game_tied_getWinnerMethod_return_null() throws Exception {
-        Game someGame = new Game();
-        Board someBoard = new Board();
         String [][] matrixOfSymbol = {
             {"O", "X", "O"},
             {"X", "X", "O"},
@@ -48,10 +44,9 @@ public class GameTest {
     public void when_a_player_won_getWinnerMethod_return_the_correct_player() throws Exception {
         Player playerOne = new Player("A");
         Player playerTwo = new Player("B");
-        Game someGame = new Game()
+        someGame
             .setPlayerOne(playerOne)
             .setPlayerTwo(playerTwo);
-        Board someBoard = new Board();
         String [][] matrixOfSymbol = {
             {"A", "B", null},
             {"A", "A", "B"},
