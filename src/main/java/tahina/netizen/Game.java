@@ -45,12 +45,13 @@ public class Game {
      * Decide if the game in the given board is over according to the tic-tac-toe rules
      * A game is over whether:
      * - the board is full
-     * - a player aligned three symbol
+     * - a player aligned three symbols
      * @param board the board on which to decide if the game is over
      * @return true if the game is over. False otherwise.
      */
     public boolean isOver(Board board) {
-        return false;
+        boolean aPlayerWon = getWinner(board) != null;
+        return board.isFull() || aPlayerWon;
     }
 
     /**
