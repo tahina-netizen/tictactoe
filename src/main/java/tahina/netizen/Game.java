@@ -29,6 +29,7 @@ public class Game {
 
 
     public Game() {
+        board = new Board();
         playerOne = new Player("O");
         playerTwo = new Player("X");
     }
@@ -40,18 +41,22 @@ public class Game {
      * @return the player who won the game. If the game is tie, return null
      */
     public Player launch() {
+        System.out.println("Game begins");
         Player playingPlayer = getOtherPlayer(null);
         while (! isOver()) {
+            System.out.print(board.toString());
             Point play = playingPlayer.play();
             try {
                 board.set(play.getX(), play.getY(), play.getSymbol());
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                System.out.println("That play is out of bound. Retry again");
             } catch (IllegalPlayException e) {
-                System.out.println(e.getMessage());
+                System.out.println("That play is illegal. Try again");
             }
             playingPlayer = getOtherPlayer(playingPlayer);
         }
+        System.out.print(board.toString());
+        System.out.println("Game is over");
         return getWinner(board);
     }
 

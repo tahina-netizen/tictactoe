@@ -47,9 +47,9 @@ public class Board implements Iterable {
 
     public String toString() {
         String res = "";
-        for (int x = 0; x < matrixOfSymbol.length; x++) {
+        for (int y = 0; y < matrixOfSymbol.length; y++) {
             String line = "";
-            for (int y = 0; y < matrixOfSymbol.length; y++) {
+            for (int x = 0; x < matrixOfSymbol.length; x++) {
                 line += matrixOfSymbol[x][y];
             }
             line += "\n";
