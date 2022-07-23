@@ -8,28 +8,26 @@ public class App
 {
     public static void main( String[] args )
     {
-        // creating a new board
-        Board board = new Board();
-        System.out.println( "Welcome to Tic tac toe" );
-        
+        System.out.println("App init");
+        // new game
+        Game game = new Game();
 
-        // new player
-        Player player = new Player("X");
+        // launch the game
+        Player winner = game.launch();
 
-        // asking where the player will put his symbol until the board is full
-        while(! board.isFull()) {
-            System.out.print(board.toString());
-            Point playerPlay = player.play();
-            try {
-                board.set(playerPlay.getX(), playerPlay.getY(), playerPlay.getSymbol());
-            } catch (IllegalArgumentException e) {
-                System.out.println("That play is out of bound. Retry again");
-            } catch (IllegalPlayException e) {
-                System.out.println("That play is illegal. Try again");
-            }
-        }
-        System.out.print(board.toString());
-        System.out.println("Game is over");
-        Player.SCANNER.close();
+        // display the winner
+        displayWinner(winner);
+
+        // exit
+        System.out.println("Exiting the app");
+        Player.SCANNER.close();        
+    }
+
+    private static void displayWinner(Player winner) {
+        if (winner == null) {
+            System.out.println("Tie game, no winner");
+        } else {
+            System.out.println("The winner is " + winner.getSymbol());
+        }    
     }
 }
