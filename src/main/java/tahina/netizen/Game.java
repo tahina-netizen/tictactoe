@@ -176,4 +176,14 @@ public class Game {
         this.playerTwo = playerTwo;
         return this;
     }
+
+    /**
+     * Set the board used in this board
+     * @param board
+     * @return this board for builder pattern
+     */
+	public Game setBoard(Board board) {
+		this.board = board;
+        return this;
+	}
 }

@@ -92,6 +92,52 @@ public class GameTest {
 
         assertFalse(someGame.isOver(someBoard));
     }
+
+    @Test
+    public void isOverMethod_without_args_just_calls_isOverMethod_by_passing_the_board_game_as_argument() throws Exception {
+        Board board;
+        String[][] matrixOfSymbol;
+        Game game;
+
+        // when the board is full
+        matrixOfSymbol = new String[][]{
+            {"O", "X", "O"},
+            {"X", "O", "O"},
+            {"X", "O", "X"}
+        };
+        board = new Board();
+        setBoard(board, matrixOfSymbol);
+        game = new Game()
+            .setBoard(board);
+
+        assertEquals(game.isOver(board), game.isOver());
+        
+        // when three symbols aligned
+        matrixOfSymbol = new String[][]{
+            {null, "X", "O"},
+            {null, null, "O"},
+            {"X", null, "O"}
+        };
+        board = new Board();
+        setBoard(board, matrixOfSymbol);
+        game = new Game()
+            .setBoard(board);
+
+        assertEquals(game.isOver(board), game.isOver());
+
+        // when board not full and no three symbols aligned
+        matrixOfSymbol = new String[][]{
+            {null, "X", "O"},
+            {null, null, null},
+            {"X", null, "O"}
+        };
+        board = new Board();
+        setBoard(board, matrixOfSymbol);
+        game = new Game()
+            .setBoard(board);
+
+        assertEquals(game.isOver(board), game.isOver());
+    }
     
     private static void setBoard(Board someBoard, String[][] matrixOfSymbol) throws Exception {
         for (int x = 0; x < matrixOfSymbol.length; x++) {
