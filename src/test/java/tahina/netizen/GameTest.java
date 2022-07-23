@@ -148,4 +148,35 @@ public class GameTest {
             }
         }
     }
+
+    @Test
+    public void when_game_is_tie_launchMethod_return_null() throws Exception {
+        String[][] matrixOfSymbol = {
+          {"O", "X", "O"},
+          {"X", "O", "X"},
+          {"X", "O", "X"}  
+        };
+        setBoard(someBoard, matrixOfSymbol);
+        someGame.setBoard(someBoard);
+
+        assertNull(someGame.launch());
+    }
+
+    @Test
+    public void when_game_is_not_tie_launchMethod_return_the_correct_player() throws Exception {
+        Player p1 = new Player("X");
+        Player p2 = new Player("O");
+        String[][] matrixOfSymbol = {
+            {"O", "O", null},
+            {null, null, null},
+            {"X", "X", "X"}  
+          };
+        setBoard(someBoard, matrixOfSymbol);
+        someGame
+            .setPlayerOne(p1)
+            .setPlayerTwo(p2)
+            .setBoard(someBoard);
+  
+        assertEquals(p1, someGame.launch());
+    }
 }

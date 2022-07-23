@@ -34,11 +34,44 @@ public class Game {
     }
 
     /**
-     * Launch the game and gives the winner
+     * Given the current state of the board, launch the game and gives the winner.
+     * When this method is called, regardless of the state of the board, the player
+     * "one" plays first.
      * @return the player who won the game. If the game is tie, return null
      */
     public Player launch() {
-        return null;
+        Player playingPlayer = getOtherPlayer(null);
+        while (! isOver()) {
+            Point play = playingPlayer.play();
+            try {
+                board.set(play.getX(), play.getY(), play.getSymbol());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (IllegalPlayException e) {
+                System.out.println(e.getMessage());
+            }
+            playingPlayer = getOtherPlayer(playingPlayer);
+        }
+        return getWinner(board);
+    }
+
+    /**
+     * 
+     * @param player One of the player in the game or null
+     * @return There are two player in the game, if player "one" is given as argument,
+     * return player "two" and vice versa. If null is given, return the player "one"
+     */
+    private Player getOtherPlayer(Player player) {
+        if (player == null) {
+            return playerOne;
+        }
+        if (player.equals(playerOne)) {
+            return playerTwo;
+        }
+        if (player.equals(playerTwo)) {
+            return playerOne;
+        }
+        throw new IllegalArgumentException("Unknown player: " + player);
     }
 
     /**
