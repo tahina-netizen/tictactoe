@@ -23,9 +23,8 @@ public class Player {
     }
 
     public Point play() {
-        System.out.println("> Your play: ");
+        System.out.print("> " + getSymbol() + ", your play: ");
         String input = SCANNER.next();
-        System.out.println("INPUT: " + input);
         int x = Character.getNumericValue(input.charAt(0));
         int y = Character.getNumericValue(input.charAt(1));
 
