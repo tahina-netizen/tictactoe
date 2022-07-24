@@ -132,6 +132,10 @@ public class Game {
         throw new IllegalArgumentException("Unknown symbol: " + winnerSymbol);
     }
 
+    /**
+     * @return if there is a player that aligned 3 symbols along rows, return its symbol.
+     * Otherwise, return null
+     */
     private String getWinnerSymbolAlongRows(Board anotherBoard) {
         for (int y = 0; y < Board.HEIGHT ; y++) {
             String symbolOnColumn0 = anotherBoard.get(0, y);
@@ -144,21 +148,11 @@ public class Game {
         return null;
     }
     
+
     /**
-     * 
-     * @param symbol0
-     * @param symbol1
-     * @param symbol2
-     * @return true if the 3 given symbols are equals. Exception rule: if one of them is null, return false
+     * @return if there is a player that aligned 3 symbols along columns, return its symbol.
+     * Otherwise, return null
      */
-    private boolean threeSymbolAreEquals(String symbol0, String symbol1, String symbol2) {
-        if (symbol0 == null) return false;
-        if (symbol1 == null) return false;
-        if (symbol2 == null) return false;
-
-        return symbol0.equals(symbol1) && symbol0.equals(symbol2);
-    }
-
     private String getWinnerSymbolAlongColumns(Board anotherBoard) {
         for (int x = 0; x < Board.HEIGHT ; x++) {
             String symbolOnRow0 = anotherBoard.get(x, 0);
@@ -171,11 +165,14 @@ public class Game {
         return null;
     }
 
+    /**
+     * @return if there is a player that aligned 3 symbols along diagonals, return its symbol.
+     * Otherwise, return null
+     */
     private String getWinnerSymbolAlongDiagonals(Board anotherBoard) {
         String symbolOnRow0;
         String symbolOnRow1;
         String symbolOnRow2;
-        boolean threeSymbolAligned;
         // check the diagonal
         symbolOnRow0 = anotherBoard.get(0, 0);
         symbolOnRow1 = anotherBoard.get(1, 1);
@@ -196,6 +193,17 @@ public class Game {
     }
 
     /**
+     * @return true if the 3 given symbols are equals. Exception rule: if one of them is null, return false
+     */
+    private boolean threeSymbolAreEquals(String symbol0, String symbol1, String symbol2) {
+        if (symbol0 == null) return false;
+        if (symbol1 == null) return false;
+        if (symbol2 == null) return false;
+
+        return symbol0.equals(symbol1) && symbol0.equals(symbol2);
+    }
+
+    /**
      * Sets the player who play first
      * @param playerOne
      * @return this game for builder pattern
@@ -206,9 +214,9 @@ public class Game {
 	}
 
     /**
-     * 
+     * Sets the player who play just after the player "one".
      * @param playerTwo
-     * @return
+     * @return this game for builder pattern
      */
     public Game setPlayerTwo(Player playerTwo) {
         this.playerTwo = playerTwo;
