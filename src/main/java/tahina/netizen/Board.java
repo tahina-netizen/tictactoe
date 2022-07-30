@@ -9,7 +9,7 @@ import java.util.List;
  * - can be modified
  * - can be read
  */
-public class Board implements Iterable {
+public class Board implements Iterable<String> {
     public static int WIDTH = 3;
     public static int HEIGHT = 3;
     private static final String BLANK_CELL_SYMBOL = ".";
@@ -46,13 +46,14 @@ public class Board implements Iterable {
     }
 
     public String toString() {
-        String res = "";
+        String res = "  0 1 2\n";
         for (int y = 0; y < matrixOfSymbol.length; y++) {
-            String line = "";
-            for (int x = 0; x < matrixOfSymbol.length; x++) {
-                line += matrixOfSymbol[x][y];
-            }
-            line += "\n";
+            String col0 = matrixOfSymbol[0][y];
+            String col1 = matrixOfSymbol[1][y];
+            String col2 = matrixOfSymbol[2][y];
+            String line = String.format("%d %s|%s|%s\n",
+                y, col0, col1, col2
+            );
             res += line;
         }
         return res;
