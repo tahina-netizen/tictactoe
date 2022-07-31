@@ -22,7 +22,12 @@ public class Player {
         return symbol;
     }
 
-    public Point play() {
+    /**
+     * With the game board given, decide a play to make
+     * @param gameBoard the game board
+     * @return the play to make
+     */
+    public Point play(Board gameBoard) {
         System.out.print("> " + getSymbol() + ", your play: ");
         String input = SCANNER.next();
         int x = Character.getNumericValue(input.charAt(0));

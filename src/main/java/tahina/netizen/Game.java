@@ -45,7 +45,7 @@ public class Game {
         Player playingPlayer = getOtherPlayer(null);
         while (! isOver()) {
             System.out.print(board.toString());
-            Point play = playingPlayer.play();
+            Point play = playingPlayer.play(board);
             try {
                 board.set(play.getX(), play.getY(), play.getSymbol());
             } catch (IllegalArgumentException e) {
