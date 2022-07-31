@@ -13,8 +13,10 @@ public class App
         Game game = new Game();
 
         // set players
-        Player p1 = askForPlayer("Choose player one\n", "X");
-        Player p2 = askForPlayer("Choose player two\n", "O");
+        System.out.println("Choose player one");
+        Player p1 = askForPlayer("X");
+        System.out.println("Choose player two");
+        Player p2 = askForPlayer("O");
         game.setPlayerOne(p1);
         game.setPlayerTwo(p2);
 
@@ -29,7 +31,14 @@ public class App
         Player.SCANNER.close();        
     }
 
-    private static Player askForPlayer(String msg, String symbol) {
+    /**
+     * Ask which type of player to choose from the user UNTIL he enter a valid choice
+     * @param symbol the symbol that will be attributed to the player
+     * @return an instance of the player type the user choosed. The given symbol is attributed
+     * to that player
+     */
+    private static Player askForPlayer(String symbol) {
+        String msg = "";
         msg += "1. Human\n";
         msg += "2. Bot\n";
         System.out.println(msg);
@@ -41,20 +50,10 @@ public class App
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid number");
         }
-        Player player;
-        player = convertNumberToPlayer(msg, symbol, choice);
-        return player;
+        return convertNumberToPlayer(choice, symbol);
     }
 
-    /**
-     * Ask which type of player to choose from the user UNTIL he enter a valid choice
-     * @param msg message for asking a player to the user
-     * @param symbol the symbol that will be attributed to the player
-     * @param choice the number of the choice the user entered
-     * @return an instance of the player type the user choosed. The given symbol is attributed
-     * to that player
-     */
-    private static Player convertNumberToPlayer(String msg, String symbol, int choice) {
+    private static Player convertNumberToPlayer(int choice, String symbol) {
         Player player;
         switch (choice) {
             case 1:
@@ -65,7 +64,7 @@ public class App
                 break;
             default:
                 System.out.println("Invalid choice, try again.");
-                player = askForPlayer(msg, symbol);
+                player = askForPlayer(symbol);
                 break;
         }
         return player;
