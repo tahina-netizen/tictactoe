@@ -17,19 +17,26 @@ public class RandomBotPlayer extends Player {
      */
     @Override
     public Point play(Board gameBoard) {
-        List<Point> availableCells = new ArrayList<>();
+        List<Point> legalPlays = new ArrayList<>();
         for (int row = 0; row < Board.HEIGHT; row++) {
             for (int col = 0; col < Board.WIDTH; col++) {
                 if (gameBoard.isCellAvailable(col, row)) {
                     Point cell = new Point(col, row, getSymbol());
-                    availableCells.add(cell);
+                    legalPlays.add(cell);
                 }
             }
         }
-        if (availableCells.isEmpty()) {
+        if (legalPlays.isEmpty()) {
             return null;
         }
-        int dice = ThreadLocalRandom.current().nextInt(0, availableCells.size());
-        return availableCells.get(dice);
+        int dice = ThreadLocalRandom.current().nextInt(0, legalPlays.size());
+        Point randomPlay = legalPlays.get(dice);
+        System.out.println(
+            String.format(
+                "%s choosed to play (%d, %d)",
+                getSymbol(), randomPlay.getX(), randomPlay.getY()
+            )
+        );
+        return randomPlay;
     }  
 }
