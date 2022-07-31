@@ -34,7 +34,7 @@ public class GameTest {
             {"X", "X", "O"},
             {"O", "O", "X"}
         };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
             
         assertNull(someGame.getWinner(someBoard));
     }
@@ -52,7 +52,7 @@ public class GameTest {
             {"A", "A", "B"},
             {null, "B", "A"}
         };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
             
         assertEquals(playerOne, someGame.getWinner(someBoard));
     }
@@ -64,7 +64,7 @@ public class GameTest {
             {"X", "O", "O"},
             {"X", "O", "X"}
         };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
 
         assertTrue(someGame.isOver(someBoard));
     }
@@ -76,7 +76,7 @@ public class GameTest {
             {null, null, "O"},
             {"X", null, "O"}
         };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
 
         assertTrue(someGame.isOver(someBoard));
     }
@@ -88,7 +88,7 @@ public class GameTest {
             {null, null, null},
             {"X", null, "O"}
         };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
 
         assertFalse(someGame.isOver(someBoard));
     }
@@ -106,7 +106,7 @@ public class GameTest {
             {"X", "O", "X"}
         };
         board = new Board();
-        setBoard(board, matrixOfSymbol);
+        TestUtil.setBoard(board, matrixOfSymbol);
         game = new Game()
             .setBoard(board);
 
@@ -119,7 +119,7 @@ public class GameTest {
             {"X", null, "O"}
         };
         board = new Board();
-        setBoard(board, matrixOfSymbol);
+        TestUtil.setBoard(board, matrixOfSymbol);
         game = new Game()
             .setBoard(board);
 
@@ -132,23 +132,13 @@ public class GameTest {
             {"X", null, "O"}
         };
         board = new Board();
-        setBoard(board, matrixOfSymbol);
+        TestUtil.setBoard(board, matrixOfSymbol);
         game = new Game()
             .setBoard(board);
 
         assertEquals(game.isOver(board), game.isOver());
     }
     
-    private static void setBoard(Board someBoard, String[][] matrixOfSymbol) throws Exception {
-        for (int x = 0; x < matrixOfSymbol.length; x++) {
-            for (int y = 0; y < matrixOfSymbol.length; y++) {
-                if(matrixOfSymbol[x][y] != null) {
-                    someBoard.set(x, y, matrixOfSymbol[x][y]);
-                }
-            }
-        }
-    }
-
     @Test
     public void when_game_is_tie_launchMethod_return_null() throws Exception {
         String[][] matrixOfSymbol = {
@@ -156,7 +146,7 @@ public class GameTest {
           {"X", "O", "X"},
           {"X", "O", "X"}  
         };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
         someGame.setBoard(someBoard);
 
         assertNull(someGame.launch());
@@ -171,7 +161,7 @@ public class GameTest {
             {null, null, null},
             {"X", "X", "X"}  
           };
-        setBoard(someBoard, matrixOfSymbol);
+        TestUtil.setBoard(someBoard, matrixOfSymbol);
         someGame
             .setPlayerOne(p1)
             .setPlayerTwo(p2)
