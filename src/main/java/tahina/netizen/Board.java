@@ -119,7 +119,8 @@ public class Board implements Iterable<String> {
 
     /**
      * @return an iterator that iterate through the board row per row (beginning with (0, 0))
-     * 
+     * Reminder: if the cell is free, iterator's next() method return null. Otherwise, it
+     * return the symbol on that cell
      */
     @Override
     public Iterator<String> iterator() {
